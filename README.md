@@ -5,7 +5,7 @@ This game is coding game.
 
 [Youtube](https://youtu.be/CPp0Bae2gHk)
 
-* Implemented by OpenGL 4.6 with GLFW
+* Implemented by OpenGL 4 with GLFW
 * GLSL Phong shader used
 * Magicavoxel obj used
 * imgui used
