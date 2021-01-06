@@ -1,18 +1,19 @@
 #pragma once
 #include "token.h"
 #include "SymbolTable.h"
+#include <memory>
 #include <list>
 namespace script
 {
-	class CStatement				//½ÇÇà¹® ÃÖ»óÀ§ Å¬·¡½º
+	class CStatement				//ï¿½ï¿½ï¿½à¹® ï¿½Ö»ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 	{
 	public:
-		virtual void Execute(SymbolTable &context);			//½ÇÇà¹® ½ÇÇà.	expression¿¡¼­ Evaluate¿Í À¯»ç.
-		static CStatement* Create(TokenIter &itor);			//½ÇÇà¹® »ý¼º.	expression¿¡¼­ Parse¿Í À¯»ç.
+		virtual void Execute(SymbolTable &context);			//ï¿½ï¿½ï¿½à¹® ï¿½ï¿½ï¿½ï¿½.	expressionï¿½ï¿½ï¿½ï¿½ Evaluateï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+		static CStatement* Create(TokenIter &itor);			//ï¿½ï¿½ï¿½à¹® ï¿½ï¿½ï¿½ï¿½.	expressionï¿½ï¿½ï¿½ï¿½ Parseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		virtual ~CStatement();
 
 	protected:
-		static void Expect(TokenID Expected, const Token &NowToken);			//¹®¹ýÀûÀÎ ¿À·ù¸¦ °ËÃâÇÏ±â À§ÇØ ÀÛ¼º.
+		static void Expect(TokenID Expected, const Token &NowToken);			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½.
 	};
 
 	typedef std::shared_ptr<CStatement> StatementPtr;

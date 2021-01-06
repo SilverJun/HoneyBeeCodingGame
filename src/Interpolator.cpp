@@ -120,7 +120,7 @@ void Interpolator::Update()
 		}
 	});
 
-	std::for_each(_tweenList.begin(), _tweenList.end(), [](Tween& t)
+	std::for_each(_tweenList.begin(), _tweenList.end(), [](Tween t)
 	{
 		if (t._isDone)
 			t._doneCallback(t);

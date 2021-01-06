@@ -3,6 +3,7 @@
 #include "System.h"
 #include <unordered_map>
 #include <vector>
+#include <functional>
 
 // http://www.gizma.com/easing/#l
 
