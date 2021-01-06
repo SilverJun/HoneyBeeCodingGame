@@ -2,10 +2,11 @@
 #include "Singleton.h"
 #include "System.h"
 #include <unordered_map>
+#include <vector>
 
 // http://www.gizma.com/easing/#l
 
-enum ease_function
+enum ease
 {
 	Linear,
 	QuadIn,
@@ -27,19 +28,19 @@ using EaseFunction = float(float, float, float, float);
 
 struct Tween
 {
-	ease_function _ease;
+	ease _ease;
 	float* _value;
 	float _duration;
 	float _start;
 	float _end;
 	std::function<void(Tween)> _doneCallback;
 	bool _isDone = false;
-	long _startTime = 0;
+	std::chrono::high_resolution_clock::time_point _startTime;
 };
 
 class Interpolator : public System, public Singleton<Interpolator>
 {
-	std::unordered_map<ease_function, std::function<EaseFunction>> _easeFunctions;
+	std::unordered_map<ease, std::function<EaseFunction>> _easeFunctions;
 	std::vector<Tween> _tweenList;
 
 public:

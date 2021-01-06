@@ -109,9 +109,11 @@ void Interpolator::Update()
 
 	std::for_each(_tweenList.begin(), _tweenList.end(), [&](Tween& t)
 	{
-		clock_t currentTime = clock();
-		*t._value = _easeFunctions[t._ease]((currentTime - t._startTime) / 1000.0f, t._start, t._end, t._duration);
-		if ((currentTime - t._startTime) / 1000.0f >= t._duration)
+		// clock_t currentTime = clock();
+        auto currentTime = std::chrono::high_resolution_clock::now();
+        float updateTime = std::chrono::duration<float>(currentTime - t._startTime).count();
+		*t._value = _easeFunctions[t._ease](updateTime, t._start, t._end, t._duration);
+		if (updateTime >= t._duration)
 		{
 			t._isDone = true;
 			*t._value = t._end;
@@ -133,7 +135,7 @@ void Interpolator::Release()
 Tween* Interpolator::AddTween(Tween tween)
 {
 	tween._isDone = false;
-	tween._startTime = clock();
+	tween._startTime = std::chrono::high_resolution_clock::now();
 
 	_tweenList.push_back(tween);
 	return &_tweenList.back();

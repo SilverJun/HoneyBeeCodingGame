@@ -7,8 +7,10 @@ SoundChannel SoundManager::GetChannel(SoundAssets sound)
 	switch (sound)
 	{
 	case BG_Stage:
-		channel = Background; break;
-	default: channel = FX;
+		channel = Background;
+		break;
+	default:
+	    channel = FX;
 	}
 	return channel;
 }
@@ -25,6 +27,8 @@ SoundManager::~SoundManager()
 void SoundManager::Init()
 {
 	assert(_system->init(2, FMOD_INIT_NORMAL, nullptr) == FMOD_OK);
+    _system->getChannel(Background, _channel);
+    _system->getChannel(FX, _channel);
 	_sounds.resize(SoundAssetNum);
 	_system->createSound(SoundAssetPath[0], FMOD_LOOP_NORMAL, nullptr, &_sounds[0]);
 	for (int i = 1; i < SoundAssetNum; ++i)

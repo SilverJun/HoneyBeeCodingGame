@@ -25,10 +25,12 @@
 #include "Camera.h"
 #include "ShaderManager.h"
 
+#ifdef WINDOWS
 extern "C"
 {
 	__declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
 }
+#endif
 
 void ErrorCallback(int errorCode, const char* errorDescription)
 {
@@ -128,7 +130,7 @@ GameApp::GameApp() : _width(1200), _height(800)
 	}
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
@@ -201,7 +203,7 @@ void GameApp::Init()
 
 	// Setup Platform/Renderer bindings
 	ImGui_ImplGlfw_InitForOpenGL(_window, true);
-	ImGui_ImplOpenGL3_Init("#version 460");
+	ImGui_ImplOpenGL3_Init("#version 410");
 
 	ImFont* font = io.Fonts->AddFontFromFileTTF("../Assets/malgun.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesKorean());
 	IM_ASSERT(font != NULL);
@@ -257,11 +259,11 @@ void GameApp::Update()
 		int count;
 		const float* axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &count);
 			//std::cout << axes[i] << std::endl;
-			// 0,1 => ¿ÞÂÊ ¾Æ³¯·Î±× Á¶ÀÌ½ºÆ½
-			// 2,3 => ¿À¸¥ÂÊ ¾Æ³¯·Î±× Á¶ÀÌ½ºÆ½
+			// 0,1 => ï¿½ï¿½ï¿½ï¿½ ï¿½Æ³ï¿½ï¿½Î±ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½Æ½
+			// 2,3 => ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ³ï¿½ï¿½Î±ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½Æ½
 
-		float x = abs(axes[2]) > 0.1 ? axes[2] : 0.0f;		// x´Â ¿À¸¥ÂÊÀÌ +ÀÓ.
-		float y = abs(axes[3]) > 0.1 ? axes[3] : 0.0f;		// y´Â À§·Î ¿Ã¸®¸é -ÀÓ.
+		float x = abs(axes[2]) > 0.1 ? axes[2] : 0.0f;		// xï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +ï¿½ï¿½.
+		float y = abs(axes[3]) > 0.1 ? axes[3] : 0.0f;		// yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ -ï¿½ï¿½.
 		
 		/*
 		int w, h;

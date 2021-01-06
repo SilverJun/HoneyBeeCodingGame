@@ -31,15 +31,15 @@ void calc_normal(float* N, const float* v0, const float* v1, const float* v2)
 
 // Load a Wavefront obj file.
 bool load_obj(
-	const char* filename,
-	const char* basedir,
-	std::vector<tinyobj::real_t>& vertices_out,
-	std::vector<tinyobj::real_t>& normals_out,
-	std::vector<size_t>& vertex_map,
-	tinyobj::attrib_t& attrib,
-	std::vector<tinyobj::shape_t>& shapes,
-	std::vector<tinyobj::material_t>& materials,
-	tinyobj::real_t scale)
+    const char* filename,
+    const char* basedir,
+    std::vector<tinyobj::real_t>& vertices_out,
+    std::vector<tinyobj::real_t>& normals_out,
+    std::vector<size_t>& vertex_map,
+    tinyobj::attrib_t& attrib,
+    std::vector<tinyobj::shape_t>& shapes,
+    std::vector<tinyobj::material_t>& materials,
+    tinyobj::real_t scale)
 {
 	using namespace std;
 	using namespace tinyobj;
@@ -47,8 +47,7 @@ bool load_obj(
 	string err;
 
 	// Load the obj file.
-	bool ret = LoadObj(&attrib, &shapes, &materials,
-		&err, filename, basedir);
+	bool ret = LoadObj(&attrib, &shapes, &materials, &err, filename, basedir);
 
 #ifdef _DEBUG
 	if (!err.empty()) fprintf(stderr, "%s\n", err.c_str());

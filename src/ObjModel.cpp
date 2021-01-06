@@ -105,7 +105,7 @@ void ObjModel::Render()
 		else {
 			glUniform1f(glGetUniformLocation(_shader, "n"), _materials[m_id].shininess);
 
-			/// TODO : ¾Æ´Ï ¸ğµ¨¸µÆÄÀÏ¿¡ ka, kd, ks ¾È³ÖÀº³ğ ´ëÃ¼ ¹¹³Ä..
+			/// TODO : ì•„ë‹ˆ ëª¨ë¸ë§íŒŒì¼ì— ka, kd, ks ì•ˆë„£ì€ë†ˆ ëŒ€ì²´ ë­ëƒ..
 			/*glUniform3fv(glGetUniformLocation(_shader, "Ka"), 1, _materials[m_id].ambient);
 			glUniform3fv(glGetUniformLocation(_shader, "Kd"), 1, _materials[m_id].diffuse);
 			glUniform3fv(glGetUniformLocation(_shader, "Ks"), 1, _materials[m_id].specular);*/

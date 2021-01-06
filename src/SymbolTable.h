@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 //#include <functional>
 #include <unordered_map>
 #include "PlayerAction.h"
@@ -18,12 +19,12 @@ namespace script
 	class SymbolTable
 	{
 	public:
-		int GetValue(std::string variable);			//°ªÀ» ¹Þ¾Æ¿Â´Ù.
-		int SetValue(std::string variable, int value);			//°ªÀ» ÀúÀåÇÏ°í ¹ÝÈ¯ÇÑ´Ù.
-		bool CheckValue(std::string variable);			//º¯¼ö°¡ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+		int GetValue(std::string variable);			//ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Â´ï¿½.
+		int SetValue(std::string variable, int value);			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
+		bool CheckValue(std::string variable);			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 		void DeleteValue(std::string variable);
 
-		void AddValue(std::string variable);			//º¯¼ö¸¦ µî·ÏÇÑ´Ù.
+		void AddValue(std::string variable);			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 
 		void AddAction(PlayerAction action)
 		{

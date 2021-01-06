@@ -19,13 +19,13 @@ static void HelpMarker()
 		ImGui::BeginTooltip();
 		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
 		ImGui::TextUnformatted(
-			u8"Go(number) - ¼ıÀÚ¸¸Å­ ÇöÀç ¹æÇâÀ¸·Î ÀüÁø\n"
-			"TurnLeft(number) - ¼ıÀÚ¸¸Å­ ¿ŞÂÊÀ¸·Î È¸Àü\n"
-			"TurnRight(number) - ¼ıÀÚ¸¸Å­ ¿À¸¥ÂÊÀ¸·Î È¸Àü\n"
-			"var i = 0 - º¯¼ö i »ı¼ºÈÄ 0À¸·Î ÃÊ±âÈ­\n"
-			"loop number { ... } - ¼ıÀÚ¸¸Å­ ¹İº¹\n"
-			"for i=0; i<5; i=i+1 { ... } - i¸¦ 5°¡ µÉ¶§±îÁö ¹İº¹\n"
-			"if (i<5) { ... } - i°¡ 5º¸´Ù ÀÛÀ¸¸é ½ÇÇà\n"
+			u8"Go(number) - ìˆ«ìë§Œí¼ í˜„ì¬ ë°©í–¥ìœ¼ë¡œ ì „ì§„\n"
+			"TurnLeft(number) - ìˆ«ìë§Œí¼ ì™¼ìª½ìœ¼ë¡œ íšŒì „\n"
+			"TurnRight(number) - ìˆ«ìë§Œí¼ ì˜¤ë¥¸ìª½ìœ¼ë¡œ íšŒì „\n"
+			"var i = 0 - ë³€ìˆ˜ i ìƒì„±í›„ 0ìœ¼ë¡œ ì´ˆê¸°í™”\n"
+			"loop number { ... } - ìˆ«ìë§Œí¼ ë°˜ë³µ\n"
+			"for i=0; i<5; i=i+1 { ... } - ië¥¼ 5ê°€ ë ë•Œê¹Œì§€ ë°˜ë³µ\n"
+			"if (i<5) { ... } - iê°€ 5ë³´ë‹¤ ì‘ìœ¼ë©´ ì‹¤í–‰\n"
 		);
 		ImGui::PopTextWrapPos();
 		ImGui::EndTooltip();
@@ -104,7 +104,7 @@ static std::vector<std::vector<StageBlockType> > _mapdata[] = {
 	}
 };
 
-TestScene::TestScene()
+TestScene::TestScene() : _rawScript(nullptr), _blockManager(nullptr), _script(nullptr)
 {
 	_startButton = new Sprite("Start.png");
 	_logo = new ObjModel("logo.obj");
@@ -123,7 +123,7 @@ void TestScene::Init()
 {
 	Camera::GetInstance()->Init();
 
-	delete[] _rawScript;
+    delete[] _rawScript;
 	_rawScript = new char[512];
 	memset(_rawScript, 0, 512);
 
@@ -135,7 +135,7 @@ void TestScene::Init()
 	_stageData.xSize = _stageData.mapData[0].size();
 	_stageData.ySize = _stageData.mapData.size();
 
-	delete _blockManager;
+    delete _blockManager;
 	_blockManager = new BlockManager();
 	_blockManager->SetStageData(_stageData);
 
@@ -172,7 +172,8 @@ void TestScene::Init()
 		}
 	} });
 
-	SoundManager::GetInstance()->StopChannel(Background);
+	if (SoundManager::GetInstance()->IsPlaying(Background))
+	    SoundManager::GetInstance()->StopChannel(Background);
 	SoundManager::GetInstance()->PlaySound(BG_Stage);
 
 	_buttonPos = glm::vec2(1200 / 2.f, 800 / 4.f * 3);
@@ -186,7 +187,7 @@ void TestScene::Update()
 	GameScene::Update();
 	static auto app = GameApp::GetInstance();
 	static bool _isClicked = false;
-	// ¸¶¿ì½º Å¬¸¯¶§ ¹öÆ° ¾ÈÂÊ¿¡ ÀÖÀ¸¸é.
+	// ë§ˆìš°ìŠ¤ í´ë¦­ë•Œ ë²„íŠ¼ ì•ˆìª½ì— ìˆìœ¼ë©´.
 	if (!_isClicked && app->_isClick)
 	{
 		if (picking(_buttonPos, _buttonSize)) // picking
@@ -271,16 +272,16 @@ void TestScene::Render()
 	ImGui::NewFrame();
 	//ImGui::ShowDemoWindow();
 
-	if (!_drawLogo && ImGui::Begin(u8"²Ü¹ú ´ë¼Òµ¿", nullptr, ImGuiWindowFlags_NoCollapse))
+	if (!_drawLogo && ImGui::Begin(u8"ê¿€ë²Œ ëŒ€ì†Œë™", nullptr, ImGuiWindowFlags_NoCollapse))
 	{
-		ImGui::Text(u8"ÇÁ·Î±×·¡¹Ö °ø°£");
+		ImGui::Text(u8"í”„ë¡œê·¸ë˜ë° ê³µê°„");
 		ImGui::SameLine();
 		HelpMarker();
 
 		ImGui::SetNextItemWidth(-1);
 		ImGui::InputTextMultiline("", _rawScript, 512, ImVec2(-1, 300), ImGuiInputTextFlags_AllowTabInput);
 		
-		if (ImGui::Button(u8"½ÃÀÛ!"))
+		if (ImGui::Button(u8"ì‹œì‘!"))
 		{
 			// Play something.
 			delete _script;
@@ -338,7 +339,7 @@ void TestScene::Render()
 		}
 		
 		ImGui::SameLine();
-		if (ImGui::Button(u8"ÃÊ±âÈ­"))
+		if (ImGui::Button(u8"ì´ˆê¸°í™”"))
 		{
 			PlayRelease();
 			PlayInit();
@@ -436,7 +437,7 @@ void TestScene::PlayUpdate()
 
 	if (_nextAction)
 	{
-		// ¸ŞÆ®¸¯½º ¹İ¿µ.
+		// ë©”íŠ¸ë¦­ìŠ¤ ë°˜ì˜.
 		_nextAction = false;
 		if (_objectCount == 0)
 		{
@@ -444,7 +445,7 @@ void TestScene::PlayUpdate()
 			_drawLogo = true;
 			_sign = _clear;
 			_logoScale = 0.5f;
-			_errorMsg = u8"Å¬¸®¾î!";
+			_errorMsg = u8"í´ë¦¬ì–´!";
 			SoundManager::GetInstance()->StopChannel(Background);
 			SoundManager::GetInstance()->PlaySound(FX_Clear);
 			_interpolator->AddTween({ CircInOut, &_logoY, 3.0f, 0.0f, 4.2f, [this](Tween t)
@@ -482,7 +483,7 @@ void TestScene::PlayUpdate()
 					break;
 				default: 
 					_isPlay = false;
-					_errorMsg = u8"´õ ÀÌ»ó ¾ÕÀ¸·Î °¥ ¼ö ¾ø½À´Ï´Ù!";
+					_errorMsg = u8"ë” ì´ìƒ ì•ìœ¼ë¡œ ê°ˆ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!";
 					_blockManager->SetStageData(_stageData);
 					PlayRelease();
 					return;
@@ -492,7 +493,7 @@ void TestScene::PlayUpdate()
 			switch (*_iter)
 			{
 			case PlayerAction::Go:
-				_goTween = { ease_function::CircInOut, &_playerGo, 0.5f, 0.0f, 0.2f, callback };
+				_goTween = {ease::CircInOut, &_playerGo, 0.5f, 0.0f, 0.2f, callback };
 				_curTween = _interpolator->AddTween(_goTween);
 				// _playerX, _playerY change.
 				_playerX += _dir.x;

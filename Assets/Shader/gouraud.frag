@@ -1,4 +1,4 @@
-#version 430
+#version 410 core
 in vec4 fColorFront;
 in vec4 fColorBack;
 in vec2 fTexcoord; 

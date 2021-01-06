@@ -12,17 +12,17 @@
 *.pch
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
+# *.so
+# *.dylib
 
 # Fortran module files
 *.mod
 *.smod
 
 # Compiled Static libraries
-*.lai
-*.la
-*.a
+# *.lai
+# *.la
+# *.a
 
 # Executables
 *.exe
@@ -97,7 +97,6 @@ StyleCopReport.xml
 *.meta
 *.obj
 *.iobj
-*.pch
 *.pdb
 *.ipdb
 *.pgc
@@ -373,3 +372,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+.DS_Store
+cmake-build-debug

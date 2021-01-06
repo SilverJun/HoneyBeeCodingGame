@@ -1,6 +1,7 @@
 #pragma once
 
 #include "tiny_obj_loader.h"
+#include <vector>
 
 bool load_obj(
 	const char* filename,

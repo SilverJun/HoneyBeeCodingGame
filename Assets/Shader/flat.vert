@@ -1,4 +1,4 @@
-#version 430
+#version 410 core
 
 
 flat out vec4 fColorFront;

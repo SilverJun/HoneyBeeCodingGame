@@ -7,7 +7,8 @@
 
 static bool has_file(const char* filepath)
 {
-	FILE *fp; if (fopen_s(&fp, filepath, "rb") == 0)
+	FILE *fp = fopen(filepath, "rb");
+	if (fp != 0)
 	{
 		fclose(fp); 
 		return true;

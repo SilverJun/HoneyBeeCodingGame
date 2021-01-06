@@ -7,7 +7,11 @@
 #ifndef __LOAD_SHADERS_H__
 #define __LOAD_SHADERS_H__
 
+#ifdef MACOSX
+#include <GL/opengl.h>
+#elif WINDOWS
 #include <GL/gl.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
