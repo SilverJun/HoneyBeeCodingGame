@@ -17,7 +17,7 @@ ELSE()
     IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         # Mac OS X specific code
         SET(OS "macos")
-        # LINK_DIRECTORIES(/usr/local/lib)
+        LINK_DIRECTORIES(/usr/local/lib)
     ELSEIF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         SET(OS "linux")
     ENDIF()
