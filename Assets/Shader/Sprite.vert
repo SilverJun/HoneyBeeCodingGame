@@ -1,4 +1,4 @@
-#version 430
+#version 410 core
  
 in vec4 vPosTex;
 in vec4 vColor;

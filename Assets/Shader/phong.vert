@@ -1,4 +1,4 @@
-#version 430
+#version 410 core
 
 in vec4 vPosition; // vertex position in the modeling coordinate system (MS)
 in vec4 vColor; // vertex color
