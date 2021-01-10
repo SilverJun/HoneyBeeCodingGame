@@ -112,7 +112,14 @@ void Interpolator::Update()
 		// clock_t currentTime = clock();
         auto currentTime = std::chrono::high_resolution_clock::now();
         float updateTime = std::chrono::duration<float>(currentTime - t._startTime).count();
-		*t._value = _easeFunctions[t._ease](updateTime, t._start, t._end, t._duration);
+        /**
+         * new Vector3(
+            _startPos.x + Linear(stopwatch.ElapsedMilliseconds, 0, _endPos.x - _startPos.x, duration),
+            _startPos.y + Linear(stopwatch.ElapsedMilliseconds, 0, _endPos.y - _startPos.y, duration),
+            _startPos.z + Linear(stopwatch.ElapsedMilliseconds, 0, _endPos.z - _startPos.z, duration)
+            );
+         */
+		*t._value = t._start + _easeFunctions[t._ease](updateTime, 0, t._end - t._start, t._duration);
 		if (updateTime >= t._duration)
 		{
 			t._isDone = true;
