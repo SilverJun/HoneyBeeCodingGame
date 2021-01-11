@@ -42,7 +42,7 @@ ENDIF()
 
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty/fmod/${OS}/include)
 
-file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp" "${PROJECT_SOURCE_DIR}/src/*.h")
+file(GLOB_RECURSE SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp" "${PROJECT_SOURCE_DIR}/src/*.h" "${PROJECT_SOURCE_DIR}/src/*.hpp")
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 message("check opengl library: ${OPENGL_gl_LIBRARY}")

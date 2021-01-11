@@ -1,5 +1,7 @@
 #pragma once
 #include "Singleton.h"
+#include "Graphics.hpp"
+#include "GLGraphicsAPI.h"
 class SceneManager;
 class Interpolator;
 class SoundManager;
@@ -20,6 +22,7 @@ public:
 	bool _isClick = false;
 	double _mouseX;
 	double _mouseY;
+    Graphics<GraphicsAPI::OpenGL> _graphics;
 
 	GameApp();
 	~GameApp();
