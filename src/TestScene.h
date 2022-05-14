@@ -4,6 +4,7 @@
 #include "Script.h"
 #include "Interpolator.h"
 #include "Sprite.h"
+#include "PythonInterpreter.h"
 
 class TestScene : public GameScene
 {
@@ -50,6 +51,8 @@ class TestScene : public GameScene
 	int _objectCount;
 
 	static int _stageNumber;
+
+    PythonInterpreter py;
 
 public:
 	TestScene();

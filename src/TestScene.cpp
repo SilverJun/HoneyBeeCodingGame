@@ -112,11 +112,13 @@ TestScene::TestScene() : _rawScript(nullptr), _blockManager(nullptr), _script(nu
 	_clear = new ObjModel("Clear.obj");
 
 	_interpolator = Interpolator::GetInstance();
+    py.Initialize();
 }
 
 TestScene::~TestScene()
 {
 	delete[] _rawScript;
+    py.Release();
 }
 
 void TestScene::Init()
@@ -284,58 +286,59 @@ void TestScene::Render()
 		if (ImGui::Button(u8"시작!"))
 		{
 			// Play something.
-			delete _script;
-			_script = new script::Script(_rawScript);
-			try {
-				_script->Exec();
-				_isPlay = true;
-				PlayInit();
-			}
-			catch (script::LexicalError& e)
-			{
-				std::cout << "Lexer Error : " << e.what() << std::endl;
-				_errorMsg = e.what();
-			}
-			catch (std::invalid_argument& e)
-			{
-				std::cout << "Error(invalid_argument) : " << e.what() << std::endl;
-				_errorMsg = e.what();
-			}
-			catch (std::out_of_range& e)
-			{
-				std::cout << "Error(out_of_range) : " << e.what() << std::endl;
-				_errorMsg = e.what();
-			}
-			catch (std::range_error& e)
-			{
-				std::cout << "Error(range_error) : " << e.what() << std::endl;
-				_errorMsg = e.what();
-			}
-			catch (std::system_error& e)
-			{
-				std::cout << "Error(system_error) code:" << e.code() << " " << e.what() << std::endl;
-				_errorMsg = e.what();
-			}
-			catch (script::ParsingError& e)
-			{
-				std::cout << "Error : " << e.what() << std::endl;
-				_errorMsg = e.what();
-			}
-			catch (script::Error& e)
-			{
-				std::cout << "Error : " << e.what() << std::endl;
-				_errorMsg = e.what();
-			}
-			catch (std::bad_alloc)
-			{
-				std::cout << "Error : bad_alloc" << std::endl;
-				_errorMsg = "bad_alloc Error";
-			}
-			catch (...)
-			{
-				std::cout << "Error : Unexcepted Error" << std::endl;
-				_errorMsg = "Unexpected Error";
-			}
+            py.RunScript(_rawScript);
+//			delete _script;
+//			_script = new script::Script(_rawScript);
+//			try {
+//				_script->Exec();
+//				_isPlay = true;
+//				PlayInit();
+//			}
+//			catch (script::LexicalError& e)
+//			{
+//				std::cout << "Lexer Error : " << e.what() << std::endl;
+//				_errorMsg = e.what();
+//			}
+//			catch (std::invalid_argument& e)
+//			{
+//				std::cout << "Error(invalid_argument) : " << e.what() << std::endl;
+//				_errorMsg = e.what();
+//			}
+//			catch (std::out_of_range& e)
+//			{
+//				std::cout << "Error(out_of_range) : " << e.what() << std::endl;
+//				_errorMsg = e.what();
+//			}
+//			catch (std::range_error& e)
+//			{
+//				std::cout << "Error(range_error) : " << e.what() << std::endl;
+//				_errorMsg = e.what();
+//			}
+//			catch (std::system_error& e)
+//			{
+//				std::cout << "Error(system_error) code:" << e.code() << " " << e.what() << std::endl;
+//				_errorMsg = e.what();
+//			}
+//			catch (script::ParsingError& e)
+//			{
+//				std::cout << "Error : " << e.what() << std::endl;
+//				_errorMsg = e.what();
+//			}
+//			catch (script::Error& e)
+//			{
+//				std::cout << "Error : " << e.what() << std::endl;
+//				_errorMsg = e.what();
+//			}
+//			catch (std::bad_alloc)
+//			{
+//				std::cout << "Error : bad_alloc" << std::endl;
+//				_errorMsg = "bad_alloc Error";
+//			}
+//			catch (...)
+//			{
+//				std::cout << "Error : Unexcepted Error" << std::endl;
+//				_errorMsg = "Unexpected Error";
+//			}
 		}
 		
 		ImGui::SameLine();
