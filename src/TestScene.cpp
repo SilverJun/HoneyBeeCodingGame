@@ -112,13 +112,14 @@ TestScene::TestScene() : _rawScript(nullptr), _blockManager(nullptr), _script(nu
 	_clear = new ObjModel("Clear.obj");
 
 	_interpolator = Interpolator::GetInstance();
-    py.Initialize();
+    _py = PythonInterpreter::GetInstance();
+    _py->Initialize();
 }
 
 TestScene::~TestScene()
 {
 	delete[] _rawScript;
-    py.Release();
+    _py->Release();
 }
 
 void TestScene::Init()
@@ -286,7 +287,10 @@ void TestScene::Render()
 		if (ImGui::Button(u8"시작!"))
 		{
 			// Play something.
-            py.RunScript(_rawScript);
+			_py->ClearActions();
+            _py->RunScript(_rawScript);
+            _isPlay = true;
+            PlayInit();
 //			delete _script;
 //			_script = new script::Script(_rawScript);
 //			try {
@@ -394,7 +398,8 @@ void TestScene::PlayInit()
 	_nextAction = true;
 
 	_curTween = nullptr;
-	_actions = _script->_symbolTable.GetActions();
+//	_actions = _script->_symbolTable.GetActions();
+    _actions = _py->GetActions();
 	_iter = _actions.begin();
 	_errorMsg = "";
 

@@ -52,7 +52,7 @@ class TestScene : public GameScene
 
 	static int _stageNumber;
 
-    PythonInterpreter py;
+    PythonInterpreter* _py;
 
 public:
 	TestScene();
