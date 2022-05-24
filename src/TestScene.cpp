@@ -19,13 +19,11 @@ static void HelpMarker()
 		ImGui::BeginTooltip();
 		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
 		ImGui::TextUnformatted(
-			u8"Go(number) - 숫자만큼 현재 방향으로 전진\n"
-			"TurnLeft(number) - 숫자만큼 왼쪽으로 회전\n"
-			"TurnRight(number) - 숫자만큼 오른쪽으로 회전\n"
-			"var i = 0 - 변수 i 생성후 0으로 초기화\n"
-			"loop number { ... } - 숫자만큼 반복\n"
-			"for i=0; i<5; i=i+1 { ... } - i를 5가 될때까지 반복\n"
-			"if (i<5) { ... } - i가 5보다 작으면 실행\n"
+			u8"import game - 게임에 필요한 함수들이 들어있는 모듈을 가져옵니다\n"
+            "go(number) - 숫자만큼 현재 방향으로 전진\n"
+			"turn_left(number) - 숫자만큼 왼쪽으로 회전\n"
+			"turn_right(number) - 숫자만큼 오른쪽으로 회전\n"
+            "파이썬 3.10버전이 내장되어있습니다."
 		);
 		ImGui::PopTextWrapPos();
 		ImGui::EndTooltip();
